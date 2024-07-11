@@ -1,14 +1,18 @@
 import java.io.IOException;
+import java.sql.Driver;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 
 public class BaseClass {
 
 	WebDriver chromeDriver = new ChromeDriver();
 
 	WebDriver fireFoxDriver = new FirefoxDriver();
+	
+	WebDriver internetExplorerDriver = new InternetExplorerDriver();
 
 	public void chromeBrowserInstantiation() throws IOException {
 
@@ -27,6 +31,15 @@ public class BaseClass {
 		String url = AccessProperties.accessPropertiesValues("fb_URL");
 
 		fireFoxDriver.get(url);
+
+	}
+	public void IeBrowserInstantiation() throws IOException {
+
+		System.setProperty(Constants.ieDriverKey , System.getProperty("userdir") + Constants.ieDriverPath);
+
+		String url = AccessProperties.accessPropertiesValues("gmail_URL");
+
+		internetExplorerDriver.get(url);
 
 	}
 

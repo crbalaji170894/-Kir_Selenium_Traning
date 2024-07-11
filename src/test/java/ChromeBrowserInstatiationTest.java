@@ -20,6 +20,9 @@ public class ChromeBrowserInstatiationTest {
 		case "gecko":
 			baseObj.firefoxBrowserInstantiaon();
 			break;
+		case "ie":
+			baseObj.IeBrowserInstantiation();
+			break;
 
 		default:
 			System.out.println("Browser Name is not matched anywhere");
@@ -31,6 +34,8 @@ public class ChromeBrowserInstatiationTest {
 	public static void main(String[] args) throws IOException {
 		ChromeBrowserInstatiationTest obj = new ChromeBrowserInstatiationTest();
 		obj.browserInstantiationTest("gecko");
+		obj.browserInstantiationTest("ie");
+
 	}
 
 }
