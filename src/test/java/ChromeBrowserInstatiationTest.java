@@ -36,6 +36,6 @@ public class ChromeBrowserInstatiationTest {
 		obj.browserInstantiationTest("gecko");
 		obj.browserInstantiationTest("ie");
 
-	}
+	}	
 
 }
