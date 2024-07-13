@@ -3,7 +3,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-public class FindWebElementIDLocator {
+public class LinkedAndPartialLinkedText {
 
 	public static void main(String[] args) {
 		System.setProperty("webdriver.chrome.driver",
@@ -11,19 +11,16 @@ public class FindWebElementIDLocator {
 
 		WebDriver driver = new ChromeDriver();
 
-		driver.get("https://www.facebook.com/");
+		driver.get("https://www.google.com/");
 
-		WebElement userName = driver.findElement(By.id("email"));
+		// WebElement linkedText = driver.findElement(By.linkText("Gmail"));
 
-		userName.sendKeys("test@gmail.com");
+		// linkedText.click();
 
-		WebElement password = driver.findElement(By.id("pass"));
+		WebElement partialLinkedText = driver.findElement(By.partialLinkText("Gm"));
 
-		password.sendKeys("test@123A");
+		partialLinkedText.click();
 
-		WebElement button = driver.findElement(By.name("login"));
-
-		button.click();
-	}                  
+	}
 
 }
