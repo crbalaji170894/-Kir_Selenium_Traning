@@ -24,13 +24,15 @@ public class BaseClass {
 
 	}
 
-	public void firefoxBrowserInstantiaon() throws IOException {
+	public WebDriver firefoxBrowserInstantiaon() throws IOException {
 
 		System.setProperty(Constants.geckoDriverKey, System.getProperty("userdir") + Constants.geckoDriverPath);
 
 		String url = AccessProperties.accessPropertiesValues("fb_URL");
 
 		fireFoxDriver.get(url);
+		
+		return fireFoxDriver;
 
 	}
 	public void IeBrowserInstantiation() throws IOException {

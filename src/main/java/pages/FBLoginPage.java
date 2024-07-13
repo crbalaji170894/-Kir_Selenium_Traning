@@ -2,7 +2,9 @@ package pages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
 
 public class FBLoginPage {
@@ -30,6 +32,13 @@ public class FBLoginPage {
 	@FindBy(xpath = "//h2[text()='Facebook helps you connect and share with the people in your life.']")
 	private WebElement fbHeaderContent;
 
+	@FindBys({ @FindBy(id = "test"), @FindBy(name = "email") })
+
+	private WebElement textuserFindBy;
+
+	@FindAll({ @FindBy(id = "email123"), @FindBy(name = "email") }) // OR condition
+
+	private WebElement textuserFindAll;	
 	public WebElement getUserNameTextBox() {
 		return userNameTextBox;
 	}

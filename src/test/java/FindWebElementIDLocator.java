@@ -15,7 +15,7 @@ public class FindWebElementIDLocator {
 
 		WebElement userName = driver.findElement(By.id("email"));
 
-		userName.sendKeys("test@gmail.com");
+		userName.sendKeys("test@gpmail.com");
 
 		WebElement password = driver.findElement(By.id("pass"));
 
