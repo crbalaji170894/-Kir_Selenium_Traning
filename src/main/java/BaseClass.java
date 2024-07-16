@@ -1,17 +1,18 @@
 import java.io.IOException;
-import java.sql.Driver;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.interactions.Actions;
 
 public class BaseClass {
 
 	WebDriver chromeDriver = new ChromeDriver();
 
 	WebDriver fireFoxDriver = new FirefoxDriver();
-	
+
 	WebDriver internetExplorerDriver = new InternetExplorerDriver();
 
 	public void chromeBrowserInstantiation() throws IOException {
@@ -31,13 +32,14 @@ public class BaseClass {
 		String url = AccessProperties.accessPropertiesValues("fb_URL");
 
 		fireFoxDriver.get(url);
-		
+
 		return fireFoxDriver;
 
 	}
+
 	public void IeBrowserInstantiation() throws IOException {
 
-		System.setProperty(Constants.ieDriverKey , System.getProperty("userdir") + Constants.ieDriverPath);
+		System.setProperty(Constants.ieDriverKey, System.getProperty("userdir") + Constants.ieDriverPath);
 
 		String url = AccessProperties.accessPropertiesValues("gmail_URL");
 
@@ -45,5 +47,57 @@ public class BaseClass {
 
 	}
 
-	
+	public WebDriver moveToElementMethod(WebDriver driver, WebElement element) {
+
+		Actions acc = new Actions(driver);
+
+		acc.moveToElement(element).perform();
+
+		return driver;
+
+	}
+
+	public WebDriver dragAndDropMethod(WebDriver driver, WebElement sourceElement, WebElement destinationElement) {
+
+		Actions acc = new Actions(driver);
+
+		acc.dragAndDrop(sourceElement, destinationElement).perform();
+
+		return driver;
+
+	}
+
+	public WebDriver rightClick(WebDriver driver, WebElement element) {
+
+		Actions acc = new Actions(driver);
+
+		acc.contextClick(element).perform();
+
+		return driver;
+
+	}
+
+	public WebDriver doubleClick(WebDriver driver, WebElement element) {
+
+		Actions acc = new Actions(driver);
+
+		acc.doubleClick(element).perform();
+
+		return driver;
+
+	}
+
+	public WebDriver clickMethod(WebElement element, WebDriver driver) {
+		element.click();
+		return driver;
+	}
+
+	public WebDriver getPage(String url, WebDriver driver) {
+
+		driver.get(url);
+
+		return driver;
+
+	}
+
 }
