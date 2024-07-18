@@ -1,3 +1,5 @@
+import java.awt.AWTException;
+import java.awt.Robot;
 import java.io.IOException;
 
 import org.openqa.selenium.WebDriver;
@@ -95,8 +97,15 @@ public class BaseClass {
 	public WebDriver getPage(String url, WebDriver driver) {
 
 		driver.get(url);
-
 		return driver;
+
+	}
+
+	private Robot robotClass() throws AWTException {
+		
+		Robot robot = new Robot();
+
+		return robot;
 
 	}
 
