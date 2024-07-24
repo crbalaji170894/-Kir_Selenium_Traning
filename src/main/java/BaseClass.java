@@ -2,6 +2,7 @@ import java.awt.AWTException;
 import java.awt.Robot;
 import java.io.IOException;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -11,11 +12,15 @@ import org.openqa.selenium.interactions.Actions;
 
 public class BaseClass {
 
+	WebDriver driver;
+
 	WebDriver chromeDriver = new ChromeDriver();
 
 	WebDriver fireFoxDriver = new FirefoxDriver();
 
 	WebDriver internetExplorerDriver = new InternetExplorerDriver();
+
+	Alert alert = driver.switchTo().alert();
 
 	public void chromeBrowserInstantiation() throws IOException {
 
@@ -101,11 +106,29 @@ public class BaseClass {
 
 	}
 
-	private Robot robotClass() throws AWTException {
-		
+	public Robot robotClass() throws AWTException {
+
 		Robot robot = new Robot();
 
 		return robot;
+
+	}
+
+	public void alertAccept(WebDriver driver) {
+		this.driver = driver;
+		alert.accept();
+
+	}
+
+	public void alertDismiss(WebDriver driver) {
+		this.driver = driver;
+		alert.dismiss();
+
+	}
+
+	public void sendKeysAlert(WebDriver driver, String text) {
+		this.driver = driver;
+		alert.sendKeys(text);
 
 	}
 
