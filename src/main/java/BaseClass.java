@@ -1,8 +1,18 @@
 import java.awt.AWTException;
 import java.awt.Robot;
+import java.io.File;
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.LinkedList;
+import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -20,7 +30,7 @@ public class BaseClass {
 
 	WebDriver internetExplorerDriver = new InternetExplorerDriver();
 
-	Alert alert = driver.switchTo().alert();
+	// Alert alert = driver.switchTo().alert();
 
 	public void chromeBrowserInstantiation() throws IOException {
 
@@ -41,6 +51,44 @@ public class BaseClass {
 		fireFoxDriver.get(url);
 
 		return fireFoxDriver;
+
+	}
+
+	public List brokenLinks(WebDriver driver1) {
+		List<WebElement> allLinksElements = driver1.findElements(By.tagName("a"));
+
+		List<String> brokenURLS = new LinkedList();
+
+		for (WebElement eachElement : allLinksElements) {
+
+			try {
+				String webLinkURL = eachElement.getAttribute("href");
+
+//				System.out.println(webLinkURL);
+
+				URL urlLink = new URL(webLinkURL);
+
+				URLConnection openConnection = urlLink.openConnection();
+
+				HttpURLConnection httpurlconnection = (HttpURLConnection) openConnection;
+
+				httpurlconnection.setConnectTimeout(5000);
+
+				httpurlconnection.connect();
+
+				if (httpurlconnection.getResponseCode() >= 400) {
+//					System.out.println(httpurlconnection.getResponseMessage());
+//					System.out.println("This is broken Link");
+//					System.out.println(webLinkURL);
+					brokenURLS.add(webLinkURL);
+				}
+
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+
+		}
+		return brokenURLS;
 
 	}
 
@@ -114,21 +162,38 @@ public class BaseClass {
 
 	}
 
+	public Alert alertMethod(WebDriver driver) {
+
+		Alert alert = driver.switchTo().alert();
+		return alert;
+	}
+
 	public void alertAccept(WebDriver driver) {
-		this.driver = driver;
-		alert.accept();
+		Alert alertMethod = alertMethod(driver);
+		alertMethod.accept();
 
 	}
 
 	public void alertDismiss(WebDriver driver) {
-		this.driver = driver;
-		alert.dismiss();
+		Alert alertMethod = alertMethod(driver);
+		alertMethod.dismiss();
 
 	}
 
 	public void sendKeysAlert(WebDriver driver, String text) {
-		this.driver = driver;
-		alert.sendKeys(text);
+		Alert alertMethod = alertMethod(driver);
+		alertMethod.sendKeys(text);
+
+	}
+
+	public void takeScreenShot(WebDriver driver, String filePath) throws IOException {
+		TakesScreenshot screenShot = (TakesScreenshot) driver;
+
+		File srcFile = screenShot.getScreenshotAs(OutputType.FILE);
+
+		File destnationFile = new File(filePath);
+
+		FileUtils.copyFile(srcFile, destnationFile);
 
 	}
 
