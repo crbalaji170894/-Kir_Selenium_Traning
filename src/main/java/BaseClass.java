@@ -7,6 +7,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.Alert;
@@ -19,6 +20,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
 
 public class BaseClass {
 
@@ -197,4 +199,92 @@ public class BaseClass {
 
 	}
 
+	public void dropDownSelectByIndex(int n, WebElement element) {
+
+		Select sel_obj = new Select(element);
+
+		sel_obj.selectByIndex(n);
+
+	}
+
+	public List<WebElement> dropDowngetAllOptions(WebElement element) {
+
+		Select sel_obj = new Select(element);
+
+		List<WebElement> options = sel_obj.getOptions();
+
+		return options;
+
+	}
+
+	public void dropDownSelectVisibleText(WebElement element) {
+
+		List<WebElement> dropDowngetAllOptions = dropDowngetAllOptions(element);
+
+		Select sel_obj = new Select(element);
+
+		for (WebElement eachOption : dropDowngetAllOptions) {
+			sel_obj.selectByVisibleText(eachOption.getText());
+
+		}
+
+	}
+
+	public void deSelectall(WebElement element) {
+		Select sel_obj = new Select(element);
+
+		sel_obj.deselectAll();
+	}
+
+	public boolean isMultiplecheck(WebElement element) {
+		Select sel_obj = new Select(element);
+
+		boolean multiple = sel_obj.isMultiple();
+
+		return multiple;
+	}
+
+	public void switchToFrame(WebDriver driver, List<WebElement> allFrameElements) {
+
+		for (int i = 0; i <= allFrameElements.size(); i++) {
+			driver.switchTo().frame(i);
+
+		}
+	}
+
+	public void SwitchToParentFrame(WebDriver driver) {
+
+		driver.switchTo().parentFrame();
+
+	}
+
+	public void defaultContetFrame(WebDriver driver) {
+
+		driver.switchTo().defaultContent();
+
+	}
+
+	public WebDriver switchToWindow(WebDriver driver) {
+
+		String parentWindowId = driver.getWindowHandle();
+
+		Set<String> allWindowId = driver.getWindowHandles();
+
+		for (String eachWindowId : allWindowId) {
+
+			if (!eachWindowId.equals(parentWindowId)) {
+				driver.switchTo().window(eachWindowId);
+			}
+		}
+
+		return driver;
+
+	}
+
+	public void defaultContetWindow(WebDriver driver) {
+		WebDriver switchToWindow = switchToWindow(driver);
+
+		switchToWindow.switchTo().defaultContent();
+
+	}
 }
