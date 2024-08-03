@@ -12,6 +12,7 @@ import java.util.Set;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -285,6 +286,33 @@ public class BaseClass {
 		WebDriver switchToWindow = switchToWindow(driver);
 
 		switchToWindow.switchTo().defaultContent();
+
+	}
+
+	public JavascriptExecutor clickjsExecutor(WebDriver driver, WebElement element) {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+
+		js.executeScript("arguments[1].click();", element);
+
+		return js;
+
+	}
+
+	public JavascriptExecutor scrollDown(WebDriver driver, WebElement scrollDownElement) {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+
+		js.executeScript("arguments[0].scrollIntoView(true);", scrollDownElement);
+
+		return js;
+
+	}
+
+	public JavascriptExecutor scrollUp(WebDriver driver, WebElement scrollUpElement) {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+
+		js.executeScript("arguments[0].scrollIntoView(false);", scrollUpElement);
+
+		return js;
 
 	}
 }
